@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './controller/app.controller';
-import { AppService } from './service/app.service';
-import { Service } from './entity/service.entity';
+import { UsersModule } from './users/users.module';
+import { ServicesModule } from './services/services.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true, // Makes config available app-wide
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -18,9 +20,9 @@ import { Service } from './entity/service.entity';
       autoLoadEntities: true, // auto-loads all entities
       synchronize: true, // auto-creates tables based on your entity classes
     }),
-    TypeOrmModule.forFeature([Service]),
+    UsersModule,
+    ServicesModule,
+    OrdersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

@@ -8,6 +8,11 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe()); //  Enables DTO validation
 
+  app.enableCors({
+    origin: 'http://localhost:4200', // Angular dev server
+    credentials: true,
+  });
+
   // Swagger config
   const config = new DocumentBuilder()
     .setTitle('Service Booking API')

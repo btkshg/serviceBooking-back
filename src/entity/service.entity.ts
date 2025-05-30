@@ -23,6 +23,9 @@ export class Service {
   @Column({ type: 'int', nullable: true })
   duration: number;
 
+  @Column({ nullable: true })
+  picUrl: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -96,3 +96,17 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+Cheat sheet for merging and pushing:
+git checkout -b feat/my-feature       # create & switch
+# make changes
+git add .                             # stage
+git commit -m "msg"                   # commit
+git push origin feat/my-feature       # push to GitHub
+
+# merge to master
+git checkout master
+git pull origin master
+git merge feat/my-feature
+git push origin master
+

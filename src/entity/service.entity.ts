@@ -4,9 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from 'typeorm'; // standart input for typeORM db
 
-@Entity()
+@Entity() // DB parapeters and attributes
 export class Service {
   @PrimaryGeneratedColumn()
   id: number;

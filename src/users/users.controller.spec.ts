@@ -1,3 +1,4 @@
+// Automatically created by nest g resource services
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';

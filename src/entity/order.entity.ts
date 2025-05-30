@@ -4,19 +4,19 @@ import {
   Column,
   CreateDateColumn,
   ManyToOne,
-} from 'typeorm';
+} from 'typeorm'; // standart input for typeORM db
 
 import { User } from './user.entity';
 import { Service } from './service.entity';
 
-export enum BookingStatus {
+export enum BookingStatus { //fixed set of allowed values
   PENDING = 'pending',
   CONFIRMED = 'confirmed',
   COMPLETED = 'completed',
   CANCELLED = 'cancelled',
 }
 
-@Entity()
+@Entity() // DB parapeters and attributes
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;

@@ -1,3 +1,4 @@
+// Automatically created by nest g resource services
 import {
   Controller,
   Get,
@@ -17,7 +18,7 @@ export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
 
   @Post()
-  create(@Body() createServiceDto: CreateServiceDto) {
+  create(@Body() createServiceDto: CreateServiceDto) { // Special DTO we created in dto folder
     return this.servicesService.create(createServiceDto);
   }
 

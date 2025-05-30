@@ -4,14 +4,14 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from 'typeorm'; // standart input for typeORM db
 
-export enum UserRole {
+export enum UserRole { // fixed set of allowed values
   USER = 'user',
   ADMIN = 'admin',
 }
 
-@Entity()
+@Entity() // DB parapeters and attributes
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

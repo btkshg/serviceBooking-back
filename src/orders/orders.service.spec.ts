@@ -1,3 +1,4 @@
+// Automatically created by nest g resource orders
 import { Test, TestingModule } from '@nestjs/testing';
 import { OrdersService } from './orders.service';
 

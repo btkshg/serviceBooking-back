@@ -13,6 +13,8 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+// Because we're using the TypeORM methods, which are parameterized queries internally,
+// we dont need to use additional methods to defend db from sql injections
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

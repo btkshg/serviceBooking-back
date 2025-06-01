@@ -4,11 +4,12 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { ServicesModule } from './services/services.module';
 import { OrdersModule } from './orders/orders.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // Makes config available app-wide
+      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -17,12 +18,13 @@ import { OrdersModule } from './orders/orders.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      autoLoadEntities: true, // auto-loads all entities
-      synchronize: true, // auto-creates tables based on your entity classes
+      autoLoadEntities: true,
+      synchronize: true,
     }),
     UsersModule,
     ServicesModule,
     OrdersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

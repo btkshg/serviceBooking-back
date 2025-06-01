@@ -1,12 +1,11 @@
-// Automatically created by nest g resource services
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 import { User } from '../entity/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-// Finished typeORM logic
 @Injectable()
 export class UsersService {
   constructor(
@@ -15,7 +14,14 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = this.userRepository.create(createUserDto);
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
+
+    const user = this.userRepository.create({
+      ...createUserDto,
+      password: hashedPassword,
+    });
+
     return this.userRepository.save(user);
   }
 
@@ -23,12 +29,10 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  //nulls were needed because we used findOneBy
   async findOne(id: number): Promise<User | null> {
     return this.userRepository.findOneBy({ id });
   }
 
-  //nulls were needed because we used findOneBy
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User | null> {
     await this.userRepository.update(id, updateUserDto);
     return this.userRepository.findOneBy({ id });

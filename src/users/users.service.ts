@@ -42,6 +42,7 @@ export class UsersService {
     await this.userRepository.delete(id);
   }
 
+  //nulls were needed because we used findOneBy
   async findByName(name: string): Promise<User | null> {
     return this.userRepository.findOneBy({ name });
   }

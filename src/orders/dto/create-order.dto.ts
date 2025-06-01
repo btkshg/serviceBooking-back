@@ -3,6 +3,8 @@ import { IsDateString, IsEnum, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { BookingStatus } from '../../entity/order.entity';
 
+// properties for input from the client
+// Air properties are needed as a decorators from nestJS for swagger and systems with inputs
 export class CreateOrderDto {
   @ApiProperty({ example: 1, description: 'ID of user that placing order' })
   @IsNotEmpty()

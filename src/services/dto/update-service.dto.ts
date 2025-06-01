@@ -1,3 +1,4 @@
+// That is basically patch function
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateServiceDto } from './create-service.dto';
 

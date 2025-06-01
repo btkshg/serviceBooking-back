@@ -3,6 +3,7 @@ import { IsEmail, IsEnum, IsNotEmpty, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { UserRole } from '../../entity/user.entity';
 
+// properties for input from the client
 // Air properties are needed as a decorators from nestJS for swagger
 export class CreateUserDto {
   @ApiProperty()

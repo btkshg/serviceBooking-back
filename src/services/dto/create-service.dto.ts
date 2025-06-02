@@ -23,4 +23,7 @@ export class CreateServiceDto {
   @IsOptional()
   @IsNumber()
   duration?: number;
+
+  @IsOptional()
+  picUrl?: string;
 }

@@ -15,7 +15,16 @@ export class OrdersService {
   ) {}
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    const order = this.orderRepository.create(createOrderDto);
+    const { userId, serviceId, date, time, status } = createOrderDto;
+
+    const order = this.orderRepository.create({
+      user: { id: userId }, // set relation by id
+      service: { id: serviceId }, // set relation by id
+      date,
+      time,
+      status,
+    });
+
     return this.orderRepository.save(order);
   }
 
@@ -58,5 +67,18 @@ export class OrdersService {
     if (result.affected === 0) {
       throw new NotFoundException(`Order with ID ${id} not found`);
     }
+  }
+
+  async findByDate(date: string): Promise<Order[]> {
+    return this.orderRepository.find({
+      where: { date: date },
+    });
+  }
+
+  async findByUser(userId: number): Promise<Order[]> {
+    return this.orderRepository.find({
+      where: { user: { id: userId } },
+      relations: ['user', 'service'],
+    });
   }
 }

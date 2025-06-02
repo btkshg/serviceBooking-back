@@ -12,6 +12,7 @@ import {
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { Query } from '@nestjs/common';
 
 // Because we're using the TypeORM methods, which are parameterized queries internally,
 // we dont need to use additional methods to defend db from sql injections
@@ -20,13 +21,23 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) { // Special DTO we created in dto folder
+  create(@Body() createOrderDto: CreateOrderDto) {
     return this.ordersService.create(createOrderDto);
   }
 
   @Get()
   findAll() {
     return this.ordersService.findAll();
+  }
+
+  @Get('by-date')
+  getByDate(@Query('date') date: string) {
+    return this.ordersService.findByDate(date);
+  }
+
+  @Get('user/:id')
+  findByUser(@Param('id') id: string) {
+    return this.ordersService.findByUser(+id);
   }
 
   @Get(':id')

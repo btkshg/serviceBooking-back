@@ -6,7 +6,7 @@ import { Service } from '../entity/service.entity';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
 
-// Needed to be commented with the sections
+// Finished typeORM logic
 @Injectable()
 export class ServicesService {
   constructor(
@@ -14,15 +14,24 @@ export class ServicesService {
     private readonly serviceRepository: Repository<Service>,
   ) {}
 
+  /**
+   * Creates a new service using the data from front
+   */
   async create(createServiceDto: CreateServiceDto): Promise<Service> {
     const service = this.serviceRepository.create(createServiceDto);
     return this.serviceRepository.save(service);
   }
 
+  /**
+   * Finds all services we have and return it
+   */
   async findAll(): Promise<Service[]> {
     return this.serviceRepository.find();
   }
 
+  /**
+   * Find a service by its id
+   */
   async findOne(id: number): Promise<Service> {
     const service = await this.serviceRepository.findOneBy({ id });
     if (!service) {
@@ -32,6 +41,9 @@ export class ServicesService {
   }
 
   // fixed by quick formatter
+  /**
+   * Updates a service by id by taking data from front
+   */
   async update(
     id: number,
     updateServiceDto: UpdateServiceDto,
@@ -44,6 +56,9 @@ export class ServicesService {
     return updated;
   }
 
+  /**
+   * Deletes service by its id
+   */
   async remove(id: number): Promise<void> {
     const result = await this.serviceRepository.delete(id);
     if (result.affected === 0) {

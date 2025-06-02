@@ -14,6 +14,9 @@ export class OrdersService {
     private readonly orderRepository: Repository<Order>,
   ) {}
 
+  /**
+   * Creates a new order with data set from user and service entitity (their ids)
+   */
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
     const { userId, serviceId, date, time, status } = createOrderDto;
 
@@ -28,12 +31,18 @@ export class OrdersService {
     return this.orderRepository.save(order);
   }
 
+  /**
+   * Returns all orders that we have in system with their user and service relations
+   */
   async findAll(): Promise<Order[]> {
     return this.orderRepository.find({
       relations: ['user', 'service'],
     });
   }
 
+  /**
+   * Return a single order by its id also with related entities
+   */
   async findOne(id: number): Promise<Order> {
     const order = await this.orderRepository.findOne({
       where: { id },
@@ -48,6 +57,10 @@ export class OrdersService {
   }
 
   // fixed by prittier formatter
+  /**
+   * Updates order by its id with given values
+   * Or throwing an error if its not existing
+   */
   async update(id: number, updateOrderDto: UpdateOrderDto): Promise<Order> {
     await this.orderRepository.update(id, updateOrderDto);
     const updated = await this.orderRepository.findOne({
@@ -62,6 +75,9 @@ export class OrdersService {
     return updated;
   }
 
+  /**
+   * This one used for removing an existing order or again throwing an error
+   */
   async remove(id: number): Promise<void> {
     const result = await this.orderRepository.delete(id);
     if (result.affected === 0) {

@@ -3,30 +3,41 @@ import { IsDateString, IsEnum, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { BookingStatus } from '../../entity/order.entity';
 
-// properties for input from the client
-// Air properties are needed as a decorators from nestJS for swagger and systems with inputs
+/**
+ * Data Transfer Object for creating a new order
+ * This is used to validate and document incoming order data from the client side
+ * And allowing us to use the inputs and store actuall data in the db
+ * Air properties are needed as a decorators from nestJS for swagger and systems with inputs
+ */
 export class CreateOrderDto {
-  @ApiProperty({ example: 1, description: 'ID of user that placing order' })
+  @ApiProperty({ example: 1, description: 'User ID who is making the order' }) // user's id
   @IsNotEmpty()
   userId: number;
 
-  @ApiProperty({ example: 2, description: 'ID of service which is picked' })
+  @ApiProperty({ example: 2, description: 'ID of the selected service' }) // service's id
   @IsNotEmpty()
   serviceId: number;
 
-  @ApiProperty({
+  @ApiProperty({ // date of creating order
     example: '2025-05-30',
-    description: 'Date of the booking (YYYY-MM-DD)',
+    description: 'Booking date in YYYY-MM-DD format',
   })
   @IsDateString()
   date: string;
 
-  @ApiProperty({ example: '12:00', description: 'Time of the booking (HH:mm)' })
+  //fixed by prettier lloking
+  @ApiProperty({ // time when the order was expexted to be
+    example: '12:00',
+    description: 'Booking time in HH:mm format',
+  })
   @IsNotEmpty()
   time: string;
 
-  // use enum because we have statuses explained in the properties before
-  @ApiProperty({ enum: BookingStatus, example: BookingStatus.PENDING })
+  @ApiProperty({ // status of order
+    enum: BookingStatus,
+    example: BookingStatus.PENDING,
+    description: 'Current status of the booking',
+  })
   @IsEnum(BookingStatus)
   status: BookingStatus;
 }
